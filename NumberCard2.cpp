@@ -13,8 +13,13 @@ int bs(int low, int high, int num) {
     if(low > high) return 0;
     else {
         if(v1[mid] == num) {
+            cnt++;
             int temp = mid;
-            while(v1[temp++] == num) {
+            int temp2 = mid;
+            while(v1[++temp] == num && temp < high + 1) {
+                cnt++;
+            }
+            while(v1[--temp2] == num && temp2 > -1) {
                 cnt++;
             }
             return cnt;
