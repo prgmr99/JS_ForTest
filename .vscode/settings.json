@@ -1,9 +1,0 @@
-{
-  "files.associations": {
-    "mutex": "cpp",
-    "array": "cpp",
-    "tuple": "cpp",
-    "variant": "cpp",
-    "thread": "cpp"
-  }
-}
