@@ -13,3 +13,5 @@ function fact(n) {
 
   return Array.from(factors);
 }
+
+// 중복된 값을 없애기 위해 Set을 이용하였다.
