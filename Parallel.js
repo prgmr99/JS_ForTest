@@ -1,6 +1,7 @@
 function solution(dots) {
   let cnt = 0;
   const result = [];
+  // 4개 점 1,2,3,4
 
   result.push([
     (dots[0][1] - dots[1][1]) / (dots[0][0] - dots[1][0]),
