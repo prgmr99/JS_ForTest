@@ -1,5 +1,5 @@
 function solution(survey, choices) {
-  const types = { R: 0, T: 0, C: 0, F: 0, J: 0, M: 0, A: 0, N: 0 };
+  const types2 = { R: 0, T: 0, C: 0, F: 0, J: 0, M: 0, A: 0, N: 0 };
   let str = "";
 
   const temp = survey.map((e, i) => {
