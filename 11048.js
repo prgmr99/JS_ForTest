@@ -1,7 +1,7 @@
 let fs = require("fs");
 const input = fs.readFileSync("./dev/stdin").toString().trim().split("\n");
 
-const [N, M] = input[0].split("").map((e) => +e);
+const [N, M] = input[0].split(" ").map((e) => +e);
 const arr = Array(N)
   .fill()
   .map((_, i) => input[i + 1].split(" ").map((e) => +e));
