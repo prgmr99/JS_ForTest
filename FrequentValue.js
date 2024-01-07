@@ -21,3 +21,8 @@ function solution(array) {
 }
 
 // 최빈값 vs 최빈값의 값 구분하기
+
+// Map 자료구조를 사용했을 경우, 순회하는 방법
+for (const element of array) {
+  frequencyMap.set(element, (frequencyMap.get(element) || 0) + 1);
+}
