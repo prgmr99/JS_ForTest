@@ -1,56 +1,22 @@
 function solution(lines) {
-  const [s1, e1] = lines[0];
-  const [s2, e2] = lines[1];
-  const [s3, e3] = lines[2];
-  let result = 0;
+  var answer = 0;
+  let lineMap = new Array(200); // 선분들이 놓일 공간
+  lineMap.fill(0);
 
-  let [rs1, re1] = [0, 0]; // 첫 번째와 두 번째 겹치는 부분
-  let [rs2, re2] = [0, 0]; // 두 번째와 세 번째 겹치는 부분
-  let [rs3, re3] = [0, 0]; // 세 번째와 첫 번째 겹치는 부분
+  for (let i = 0; i < 3; i++) {
+    let left = lines[i][0];
+    let right = lines[i][1];
 
-  // 첫 번째와 두 번째 비교
-  let tempx1 = s1 >= s2 ? s1 : s2;
-  let tempy1 = e1 < e2 ? e1 : e2;
-  [rs1, re1] = [tempx1, tempy1]; // 만약 rs이 re보다 크다면 겹치는 부분이 없다는 의미
-
-  // 두 번째와 세 번째 비교
-  let tempx2 = s2 >= s3 ? s2 : s3;
-  let tempy2 = e2 < e3 ? e2 : e3;
-  [rs2, re2] = [tempx2, tempy2];
-
-  // 세 번째와 첫 번째 비교
-  let tempx3 = s3 >= s1 ? s3 : s1;
-  let tempy3 = e3 < e1 ? e3 : e1;
-  [rs3, re3] = [tempx3, tempy3];
-
-  console.log([rs1, re1]);
-  console.log([rs2, re2]);
-  console.log([rs3, re3]);
-  console.log("------------------");
-
-  if (rs1 >= re1 && rs2 >= re2 && rs3 >= re3) {
+    for (let j = left; j < right; j++) {
+      lineMap[j + 100] += 1;
+    }
   }
 
-  return result;
-}
+  for (let i in lineMap) {
+    if (lineMap[i] > 1) {
+      answer += 1;
+    }
+  }
 
-solution([
-  [0, 1],
-  [2, 5],
-  [3, 9],
-]);
-solution([
-  [-1, 1],
-  [1, 3],
-  [3, 9],
-]);
-solution([
-  [0, 5],
-  [3, 9],
-  [1, 10],
-]);
-solution([
-  [0, 2],
-  [-3, -1],
-  [-2, 1],
-]);
+  return answer;
+}
