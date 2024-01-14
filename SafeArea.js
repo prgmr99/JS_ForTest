@@ -2,6 +2,8 @@
 
 function solution(board) {
   let answer = 0;
+
+  // 방향 초기화하기 -> 이후에 반복문으로 각 부분 확인가능
   const danger = [
     [-1, -1],
     [-1, 0],
@@ -19,6 +21,8 @@ function solution(board) {
         danger.forEach((v) => {
           let [x, y] = v;
           [x, y] = [x + i, y + j];
+
+          // 범위(지역)을 벗어나는 것이 아닌지 확인하기
           if (
             x >= 0 &&
             x < board.length &&
@@ -32,7 +36,7 @@ function solution(board) {
       }
     }
   }
-  console.log(board);
+
   board.map((v1) => v1.map((v2) => (v2 == 0 ? answer++ : 0)));
   return answer;
 }
