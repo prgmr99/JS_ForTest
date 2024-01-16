@@ -6,3 +6,12 @@ function solution(phone_number) {
 
   return hiddenPart + visiblePart;
 }
+
+// 내 풀이
+function solution(phone_number) {
+  let num = phone_number;
+  for (let i = 0; i < num.length - 4; i++) {
+    num = num.replace(num[i], "*");
+  }
+  return num;
+}
