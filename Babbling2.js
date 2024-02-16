@@ -8,7 +8,7 @@ function solution(babbling) {
       if (temp.includes(arr[j].repeat(2))) {
         break;
       }
-      temp = temp.split(arr[j]).join(" ");
+      temp = temp.split(arr[j]).join(" "); // 공백은 옹알이(1)에서 사용했던 'X'와 동일한 역할이다.
     }
     if (temp.split(" ").join("").length === 0) {
       cnt++;
