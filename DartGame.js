@@ -1,34 +1,30 @@
-const str = "1D2S#10S";
+function solution(dartResult) {
+  const result = [];
+  let temp = 0;
 
-let strNums = str.match(/\d+/g);
-const regexScores = /S|D|T/g;
-const regexOptions = /\#|\*/g;
-
-const strScores = str.match(regexScores);
-const strOptions = str.match(regexOptions);
-
-strNums = strNums.map(Number);
-strScores;
-strOptions;
-
-for (let i = 0; i < 3; i++) {
-  if (strScores[i] === "S") {
-    continue;
-  } else if (strScores[i] === "D") {
-    strNums[i] = strNums[i] * strNums[i];
-  } else if (strScores[i] === "T") {
-    strNums[i] = strNums[i] * strNums[i] * strNums[i];
+  for (let i = 0; i < dartResult.length; i++) {
+    if (dartResult[i] >= 0 && dartResult[i] <= 9) {
+      if (dartResult[i] == 1 && dartResult[i + 1] == 0) {
+        temp = 10;
+        i++;
+      } else {
+        temp = +dartResult[i];
+      }
+    } else if (dartResult[i] === "S") {
+      result.push(temp);
+    } else if (dartResult[i] === "D") {
+      result.push(Math.pow(temp, 2));
+    } else if (dartResult[i] === "T") {
+      result.push(Math.pow(temp, 3));
+    } else if (dartResult[i] === "#") {
+      result[result.length - 1] *= -1;
+    } else if (dartResult[i] === "*") {
+      result[result.length - 1] *= 2;
+      result[result.length - 2] *= 2;
+    }
   }
+
+  const sum = result.reduce((a, c) => (a += c), 0);
+
+  return sum;
 }
-
-for (let i = 0; i < str.length; i++) {
-  if (str[i] === "*") {
-  } else if (str[i] === "#") {
-  }
-}
-
-strNums;
-
-const sum = strNums.reduce((a, c) => (a += c), 0);
-
-console.log(sum);
