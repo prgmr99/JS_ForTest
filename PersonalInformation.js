@@ -64,3 +64,57 @@ function calculate(num, year, month, day) {
 }
 
 result;
+
+function solution(today, terms, privacies) {
+  // { 약관 : 유효 개월 } 값을 담는 객체 생성
+  const obj = {};
+
+  // 약관별 개월 수를 객체에 갱신
+  terms.forEach((i) => {
+    obj[i[0]] = parseInt(i.split(" ")[1]);
+  });
+
+  // 개인별 정보 수집 날짜를 date 배열에 담는다.
+  const date = privacies.map((i) => {
+    let a = i.split(" ");
+    return a[0].split(".").map((i) => parseInt(i));
+  });
+
+  // 개인별 약관정보를 배열에 담는다
+  const reserve = privacies.map((i) => {
+    let a = i.split(" ");
+    return a[1];
+  });
+
+  // 반복한다.
+  for (let i = 0; i < reserve.length; i++) {
+    // 약관에 따라 개월 수에 값을 합한다.
+    date[i][1] = date[i][1] + obj[reserve[i]];
+
+    // 합한 개월이 12가 넘는 경우 년도에 1 추가 후 개월을 갱신
+    if (date[i][1] > 12) {
+      date[i][1] = date[i][1] - 12;
+      date[i][0]++;
+    }
+  }
+
+  // 오늘 일자를 날짜객체에 알맞게 가공 => [년, 월, 일]
+  today = today.split(".").map((i) => parseInt(i));
+
+  // 반환할 결과값을 담는 배열 생성
+  let result = [];
+
+  date.forEach((i, idx) => {
+    // Date 객체 사용
+    const a = new Date(...today);
+    const b = new Date(...i);
+
+    // 두 날짜를 비교한 뒤 결과 배열에 전송
+    if (a >= b) {
+      result.push(idx + 1);
+    }
+  });
+
+  // 결과 배열 출력
+  return result;
+}
