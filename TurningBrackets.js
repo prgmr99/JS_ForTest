@@ -9,6 +9,7 @@ function solution(s) {
 
     if (closeArr.includes(arr[0])) return false;
 
+    // forEach를 사용ㅎ면 return이 안되서 for of로 변경
     for (let e of arr) {
       if (openArr.includes(e)) {
         stack.push(e);
