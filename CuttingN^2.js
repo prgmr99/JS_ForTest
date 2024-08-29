@@ -24,3 +24,17 @@ function solution(n, left, right) {
 
   return arr;
 }
+
+// 개선한 코드
+function solution(n, left, right) {
+  const result = [];
+
+  for (let i = left; i <= right; i++) {
+    // i번째 값이 속한 (i/n)행과 (i%n)열에서의 값은 max(row, col) + 1
+    const row = Math.floor(i / n);
+    const col = i % n;
+    result.push(Math.max(row, col) + 1);
+  }
+
+  return result;
+}
