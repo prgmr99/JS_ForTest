@@ -30,3 +30,27 @@ function solution(s) {
   }
   return result;
 }
+
+// 시간 복잡도 약소 개선
+function solution(s) {
+  // 문자열에서 불필요한 '{'와 '}' 제거 및 배열로 변환
+  const finingsArr = s
+    .slice(2, -2)
+    .split("},{")
+    .map((e) => e.split(",").map(Number));
+
+  // 배열을 길이 기준으로 정렬
+  const sortedArr = finingsArr.sort((a, b) => a.length - b.length);
+
+  // 중복 없이 순서대로 결과 배열에 추가
+  const result = [];
+  sortedArr.forEach((arr) => {
+    arr.forEach((num) => {
+      if (!result.includes(num)) {
+        result.push(num);
+      }
+    });
+  });
+
+  return result;
+}
