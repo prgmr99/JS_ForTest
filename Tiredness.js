@@ -1,15 +1,20 @@
+// 완전탐색 - 재궈
+
 function solution(k, dungeons) {
-  let energy = k;
-  let count = 0;
+  let maxCount = 0;
 
-  dungeons.sort((a, b) => b[0] - a[0]);
+  function explore(currentK, visited, count) {
+    maxCount = Math.max(maxCount, count);
 
-  dungeons.forEach((item) => {
-    if (energy >= item[1]) {
-      energy -= item[1];
-      count++;
+    for (let i = 0; i < dungeons.length; i++) {
+      if (!visited[i] && currentK >= dungeons[i][0]) {
+        visited[i] = true;
+        explore(currentK - dungeons[i][1], visited, count + 1);
+        visited[i] = false;
+      }
     }
-  });
+  }
 
-  return count;
+  explore(k, Array(dungeons.length).fill(false), 0);
+  return maxCount;
 }
