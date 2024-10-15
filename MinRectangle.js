@@ -43,3 +43,18 @@ function solution(sizes) {
   );
   return hor * ver;
 }
+
+// 나의 다른 풀이
+function solution(sizes) {
+  let maxX = 0;
+  let maxY = 0;
+
+  for (let i = 0; i < sizes.length; i++) {
+    const [w, h] = sizes[i].sort((a, b) => b - a);
+
+    maxX = Math.max(maxX, w);
+    maxY = Math.max(maxY, h);
+  }
+
+  return maxX * maxY;
+}
