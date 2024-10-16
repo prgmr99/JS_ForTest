@@ -63,3 +63,37 @@ function solution(answers) {
 
   return answer;
 }
+
+// 나의 두 번째 풀이
+function solution(answers) {
+  let result = [];
+  const len = answers.length;
+
+  let student1 = ["12345", 0];
+  let student2 = ["21232425", 0];
+  let student3 = ["3311224455", 0];
+
+  const transformed1 =
+    student1[0].repeat(Math.floor(len / student1[0].length)) +
+    student1[0].slice(0, len % student1[0].length);
+  const transformed2 =
+    student2[0].repeat(Math.floor(len / student2[0].length)) +
+    student2[0].slice(0, len % student2[0].length);
+  const transformed3 =
+    student3[0].repeat(Math.floor(len / student3[0].length)) +
+    student3[0].slice(0, len % student3[0].length);
+
+  for (let i = 0; i < len; i++) {
+    if (Number(transformed1[i]) === answers[i]) student1[1]++;
+    if (Number(transformed2[i]) === answers[i]) student2[1]++;
+    if (Number(transformed3[i]) === answers[i]) student3[1]++;
+  }
+
+  const maxCorrection = Math.max(student1[1], student2[1], student3[1]);
+
+  if (student1[1] === maxCorrection) result.push(1);
+  if (student2[1] === maxCorrection) result.push(2);
+  if (student3[1] === maxCorrection) result.push(3);
+
+  return result.sort((a, b) => a - b);
+}
