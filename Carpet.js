@@ -19,3 +19,28 @@ function solution(brown, yellow) {
   }
   return result;
 }
+
+// 나의 다른 풀이
+function solution(brown, yellow) {
+  const area = brown + yellow;
+  let w = 0;
+  let h = 3;
+  const result = [];
+
+  while (true) {
+    w = Math.floor(area / h);
+
+    if (w < h) break;
+
+    const yellowArea = (w - 2) * (h - 2);
+
+    if (yellowArea === yellow) {
+      result.push(...[w, h]);
+      break;
+    }
+
+    h++;
+  }
+
+  return result;
+}
