@@ -1,33 +1,40 @@
 function solution(str1, str2) {
+  // 다중집합 생성 함수
   const makeMultiSet = (str) => {
-    const multiSet = [];
+    const result = [];
     for (let i = 0; i < str.length - 1; i++) {
-      const word = (str[i] + str[i + 1]).toLowerCase();
-      if (/^[a-z]{2}$/.test(word)) multiSet.push(word);
+      const word = str[i] + str[i + 1];
+      // 알파벳이 아닌 문자 포함 여부 확인
+      if (/[^a-zA-Z]/.test(word)) continue;
+      result.push(word.toLowerCase()); // 대소문자 구분 제거
     }
-    return multiSet;
+    return result;
   };
 
-  const arr1 = makeMultiSet(str1);
-  const arr2 = makeMultiSet(str2);
+  const multiSet1 = makeMultiSet(str1);
+  const multiSet2 = makeMultiSet(str2);
 
-  const map1 = new Map();
-  const map2 = new Map();
+  // 교집합 계산
+  const intersection = [];
+  const union = [...multiSet1];
 
-  arr1.forEach((item) => map1.set(item, (map1.get(item) || 0) + 1));
-  arr2.forEach((item) => map2.set(item, (map2.get(item) || 0) + 1));
-
-  let intersectionSize = 0;
-  let unionSize = 0;
-
-  const allKeys = new Set([...map1.keys(), ...map2.keys()]);
-  allKeys.forEach((key) => {
-    const count1 = map1.get(key) || 0;
-    const count2 = map2.get(key) || 0;
-    intersectionSize += Math.min(count1, count2);
-    unionSize += Math.max(count1, count2);
+  const copyMultiSet2 = [...multiSet2]; // multiSet2를 수정하면서 작업
+  multiSet1.forEach((word) => {
+    const index = copyMultiSet2.indexOf(word);
+    if (index !== -1) {
+      intersection.push(word);
+      copyMultiSet2.splice(index, 1); // 이미 교집합에 포함된 원소는 제거
+    }
   });
-  const similarity = unionSize === 0 ? 1 : intersectionSize / unionSize;
 
-  return Math.floor(similarity * 65536);
+  // 합집합 계산 (남은 multiSet2 추가)
+  union.push(...copyMultiSet2);
+
+  // 자카드 유사도 계산
+  const similarity =
+    intersection.length === 0 && union.length === 0
+      ? 65536
+      : Math.floor((intersection.length / union.length) * 65536);
+
+  return similarity;
 }
