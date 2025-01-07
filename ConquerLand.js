@@ -1,23 +1,16 @@
 function solution(land) {
-  let sum = 0;
-  let previousIndex = -1;
+  const n = land.length;
 
-  for (let i = 0; i < land.length; i++) {
-    let max = -1;
-    let currentIndex = -1;
-
-    for (let j = 0; j < 4; j++) {
-      if (land[i][j] > max && j !== previousIndex) {
-        max = land[i][j];
-        currentIndex = j;
-      }
-    }
-
-    sum += max;
-    previousIndex = currentIndex;
+  // 각 행을 순회하면서 최대값을 계산합니다.
+  for (let i = 1; i < n; i++) {
+    land[i][0] += Math.max(land[i - 1][1], land[i - 1][2], land[i - 1][3]);
+    land[i][1] += Math.max(land[i - 1][0], land[i - 1][2], land[i - 1][3]);
+    land[i][2] += Math.max(land[i - 1][0], land[i - 1][1], land[i - 1][3]);
+    land[i][3] += Math.max(land[i - 1][0], land[i - 1][1], land[i - 1][2]);
   }
 
-  return sum;
+  // 마지막 행에서 최대값을 반환합니다.
+  return Math.max(...land[n - 1]);
 }
 
 console.log(
