@@ -13,7 +13,9 @@ function solution(order) {
             subContainer.push(order[i]);
         } else if(order[i] === i + 1) {
             answer++;
-        } else if(subContainer[subContainer.length - 1] === i + 1) {
+        }
+        
+        if(subContainer[subContainer.length - 1] === i + 1) {
             subContainer.pop();
             answer++;
         }
