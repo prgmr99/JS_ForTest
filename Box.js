@@ -7,17 +7,19 @@
 function solution(order) {
     let answer = 0;
     const subContainer = [];
+    let current = 1;
 
-    for(let i = 0;i < order.length;i++) {
-        if(order[i] !== i + 1) {
-            subContainer.push(order[i]);
-        } else if(order[i] === i + 1) {
-            answer++;
+    for (let i = 0; i < order.length; i++) {
+        while (current <= order.length && (subContainer.length === 0 || subContainer[subContainer.length - 1] !== order[i])) {
+            subContainer.push(current);
+            current++;
         }
-        
-        if(subContainer[subContainer.length - 1] === i + 1) {
+
+        if (subContainer[subContainer.length - 1] === order[i]) {
             subContainer.pop();
             answer++;
+        } else {
+            break;
         }
     }
 
