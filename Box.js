@@ -14,7 +14,7 @@ function solution(order) {
             subContainer.push(current);
             current++;
         }
-
+ 
         if (subContainer[subContainer.length - 1] === order[i]) {
             subContainer.pop();
             answer++;
