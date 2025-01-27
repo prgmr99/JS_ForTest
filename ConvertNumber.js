@@ -12,7 +12,8 @@
 // DP로 풀어야 할 것 같다.
 
 function solution(x, y, n) {
-  const dp = new Array(10001).fill(0);
+  const dp = new Array(10001).fill(Infinity);
+  dp[x] = 0;
   const queue = [[x, 0]];
 
   while (queue.length > 0) {
@@ -25,7 +26,7 @@ function solution(x, y, n) {
     const nextValues = [current * 2, current * 3, current + n];
 
     for (const next of nextValues) {
-      if (next <= 10000 && dp[next] === 0) {
+      if (next <= 10000 && dp[next] > count + 1) {
         dp[next] = count + 1;
         queue.push([next, count + 1]);
       }
