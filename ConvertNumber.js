@@ -12,28 +12,29 @@
 // DP로 풀어야 할 것 같다.
 
 function solution(x, y, n) {
-  const dp = new Array(10001).fill(Infinity);
+  const dp = new Array(10001).fill(0);
+
   dp[x] = 0;
-  const queue = [[x, 0]];
 
-  while (queue.length > 0) {
-    const [current, count] = queue.shift();
+  while (!dp.includes(y)) {
+    for (let i = 0; i < dp.length; i++) {
+      if (i === x * 2) {
+        dp[i] += 1;
+      }
 
-    if (current === y) {
-      return count;
-    }
+      if (i === x * 3) {
+        dp[i] += 1;
+      }
 
-    const nextValues = [current * 2, current * 3, current + n];
-
-    for (const next of nextValues) {
-      if (next <= 10000 && dp[next] > count + 1) {
-        dp[next] = count + 1;
-        queue.push([next, count + 1]);
+      if (i === x + n) {
+        dp[i] += 1;
       }
     }
   }
 
-  return -1;
+  dp.filter((el) => el !== 0).sort((a, b) => a - b);
+
+  return dp[0];
 }
 
 console.log(solution(10, 40, 5)); // 2
