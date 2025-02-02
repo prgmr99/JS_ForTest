@@ -1,20 +1,44 @@
 function solution(x, y, n) {
-  if (x === y) return 0;
+  const calc = (a, num) => {
+    switch (num) {
+      case 0:
+        return a - n;
+      case 1:
+        if (a % 2 === 0) {
+          return a / 2;
+        } else {
+          return 0;
+        }
+      case 2:
+        if (a % 3 === 0) {
+          return a / 3;
+        } else {
+          return 0;
+        }
+    }
+  };
 
-  const queue = [[x, 0]];
-  const visited = new Set([x]);
+  const bfs = () => {
+    let queue = [[y, 0]];
+    let visit = {};
+    visit[y] = 1;
 
-  while (queue.length > 0) {
-    const [current, count] = queue.shift();
+    while (queue.length) {
+      let [cur, count] = queue.shift();
 
-    for (const next of [current + n, current * 2, current * 3]) {
-      if (next === y) return count + 1;
-      if (next < y && !visited.has(next)) {
-        visited.add(next);
-        queue.push([next, count + 1]);
+      if (cur === x) return count;
+
+      for (let i = 0; i < 3; ++i) {
+        let next = calc(cur, i);
+        if (next >= x && !visit[next]) {
+          visit[next] = 1;
+          queue.push([next, count + 1]);
+        }
       }
     }
-  }
 
-  return -1;
+    return -1;
+  };
+
+  return bfs();
 }
